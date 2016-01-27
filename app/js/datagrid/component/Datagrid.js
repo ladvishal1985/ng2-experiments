@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', './Sorter', './Column'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,26 +8,41 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var DatagridView;
+    var core_1, Sorter_1, Column_1;
+    var Datagrid;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (Sorter_1_1) {
+                Sorter_1 = Sorter_1_1;
+            },
+            function (Column_1_1) {
+                Column_1 = Column_1_1;
             }],
         execute: function() {
-            DatagridView = (function () {
-                function DatagridView() {
+            Datagrid = (function () {
+                function Datagrid() {
                 }
-                DatagridView = __decorate([
+                Datagrid.prototype.onOrderChange = function (value) {
+                    this.orderProp = value.key;
+                    this.reverse = value.order;
+                    this.activeColIndex = value.activeColIndex;
+                };
+                Datagrid = __decorate([
                     core_1.Component({
-                        templateUrl: 'js/datagrid/datagrid_view.html',
+                        selector: "datagrid",
+                        templateUrl: 'js/datagrid/component/dg_tpl.html',
+                        inputs: ["dsource", 'columnDefs'],
+                        directives: [Column_1.Column],
+                        pipes: [Sorter_1.OrderByPipe]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], DatagridView);
-                return DatagridView;
+                ], Datagrid);
+                return Datagrid;
             })();
-            exports_1("default",DatagridView);
+            exports_1("Datagrid", Datagrid);
         }
     }
 });

@@ -1,0 +1,15 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th *ngFor="#col of columnDefs; #i=index" >
+            	<column [col] = "col" (update)="onOrderChange($event)" [activeColIndex] = "activeColIndex" [colIndex] = "i" ></column>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="#row of dsource | orderBy: orderProp : reverse" >
+            <td *ngFor="#col of columnDefs">{{row[col.desc]}}</td>
+        </tr>
+    </tbody>
+</table>
+
